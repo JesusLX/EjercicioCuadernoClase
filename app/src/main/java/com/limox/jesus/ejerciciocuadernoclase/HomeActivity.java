@@ -33,7 +33,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public static final String URL_API = "site";
+    public static final String URL_API = "student";
     public static final String MAIL = "mail";
     public static final int ADD_CODE = 100;
     public static final int UPDATE_CODE = 200;

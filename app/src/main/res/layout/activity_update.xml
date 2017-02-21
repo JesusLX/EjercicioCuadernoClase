@@ -13,7 +13,7 @@
         android:text="Id:" />
 
     <TextView
-        android:id="@+id/idSite"
+        android:id="@+id/idStudent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp" />
@@ -34,7 +34,7 @@
         android:id="@+id/widget35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Link:" />
+        android:text="Surname:" />
 
     <EditText
         android:id="@+id/surnameStudent"
@@ -43,6 +43,52 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/widget38"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address:" />
+
+    <EditText
+        android:id="@+id/addressStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/widget40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City:" />
+
+    <EditText
+        android:id="@+id/cityStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/widget41"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Postal Code:" />
+
+    <EditText
+        android:id="@+id/postalCodeStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/widget42"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone:" />
+
+    <EditText
+        android:id="@+id/phoneStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:textSize="16sp" />
+    <TextView
         android:id="@+id/widget37"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,6 +96,7 @@
 
     <EditText
         android:id="@+id/emailStudent"
+        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp" />

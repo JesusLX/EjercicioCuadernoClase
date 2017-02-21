@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.limox.jesus.ejerciciocuadernoclase.Pojo.Student;
 import com.limox.jesus.ejerciciocuadernoclase.Utils.RestClient;
+import com.limox.jesus.ejerciciocuadernoclase.Utils.Result;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -33,16 +34,16 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.emailStudent) EditText emailSite;
     @BindView(R.id.accept) Button accept;
     @BindView(R.id.cancel) Button cancel;
-    //EditText nameSurname, surnameStudent, emailSite;
+    //EditText nameStudent, surnameStudent, emailStudent;
     //Button accept, cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
-        //nameSurname = (EditText) findViewById(R.id.nameSurname);
+        //nameStudent = (EditText) findViewById(R.id.nameStudent);
         //surnameStudent = (EditText) findViewById(R.id.surnameStudent);
-        //emailSite = (EditText) findViewById(R.id.emailSite);
+        //emailStudent = (EditText) findViewById(R.id.emailStudent);
         //accept = (Button) findViewById(R.id.accept);
         //cancel = (Button) findViewById(R.id.cancel);
         accept.setOnClickListener(this);
@@ -75,7 +76,11 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
         RequestParams params = new RequestParams();
         //params.put("site", gson.toJson(s));
         params.put("name", s.getName());
-        params.put("link", s.getLink());
+        params.put("surname", s.getSurname());
+        params.put("address", s.getAddress());
+        params.put("city", s.getCity());
+        params.put("postalCode", s.getPostalCode());
+        params.put("Phone", s.getPhone());
         params.put("email", s.getEmail());
         RestClient.post(URL, params, new JsonHttpResponseHandler() {
             @Override
@@ -101,10 +106,7 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
                         //site = gson.fromJson(String.valueOf(result.getSites()), Site.class);
                         Intent i = new Intent();
                         Bundle mBundle = new Bundle();
-                        mBundle.putInt("id", result.getLast());
-                        mBundle.putString("name", s.getName());
-                        mBundle.putString("link", s.getLink());
-                        mBundle.putString("email", s.getEmail());
+                        mBundle.putSerializable("student",s);
                         i.putExtras(mBundle);
                         setResult(OK, i);
                         finish();

@@ -23,8 +23,7 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class Add_Activity extends AppCompatActivity implements View.OnClickListener {
-    public static final String URL = "site";
-    public static final int OK = 1;
+    public static final String URL = "student";
     @BindView(R.id.nameStudent) EditText nameStudent;
     @BindView(R.id.surnameStudent) EditText surnameStudent;
     @BindView(R.id.addressStudent) EditText addressStudent;
@@ -80,7 +79,7 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
         params.put("address", s.getAddress());
         params.put("city", s.getCity());
         params.put("postalCode", s.getPostalCode());
-        params.put("Phone", s.getPhone());
+        params.put("phone", s.getPhone());
         params.put("email", s.getEmail());
         RestClient.post(URL, params, new JsonHttpResponseHandler() {
             @Override
@@ -108,7 +107,7 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
                         Bundle mBundle = new Bundle();
                         mBundle.putSerializable("student",s);
                         i.putExtras(mBundle);
-                        setResult(OK, i);
+                        setResult(RESULT_OK, i);
                         finish();
                     } else
                         message = "Error adding the site:\n" + result.getMessage();

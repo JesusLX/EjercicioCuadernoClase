@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -37,7 +38,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static final String MAIL = "mail";
     public static final int ADD_CODE = 100;
     public static final int UPDATE_CODE = 200;
-    public static final int OK = 1;
+    private Toolbar.OnMenuItemClickListener menuItemClickListener;
+    @BindView(R.id.mToolBar)
+    Toolbar mToolbar;
     @BindView(R.id.floatingActionButton)
     FloatingActionButton fab;
     @BindView(R.id.recyclerView)
@@ -48,6 +51,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mToolbar.setTitle("Estudiantes");
+        mToolbar.inflateMenu(R.menu.menu_home);
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_incidencias:
+                        Intent intent = new Intent(HomeActivity.this,IncidecesListActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         //fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -130,20 +147,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Student student = new Student();
         if (requestCode == ADD_CODE)
-            if (resultCode == OK) {
-                student.setId(data.getIntExtra("id", 1));
-                student.setName(data.getStringExtra("name"));
-                student.setSurname(data.getStringExtra("surname"));
-                student.setAddress(data.getStringExtra("address"));
-                student.setCity(data.getStringExtra("city"));
-                student.setPostalCode(data.getStringExtra("postalCode"));
-                student.setPhone(data.getStringExtra("phone"));
-                student.setEmail(data.getStringExtra("email"));
+            if (resultCode == RESULT_OK) {
+                student = (Student) data.getSerializableExtra("student");
                 //add the student to the adapter
                 mAdapter.add(student);
             }
         if (requestCode == UPDATE_CODE)
-            if (resultCode == OK) {
+            if (resultCode == RESULT_OK) {
                 student.setId(data.getIntExtra("id", 1));
                 student.setName(data.getStringExtra("name"));
                 student.setSurname(data.getStringExtra("surname"));

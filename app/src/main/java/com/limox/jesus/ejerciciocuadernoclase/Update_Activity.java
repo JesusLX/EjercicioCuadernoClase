@@ -27,7 +27,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class Update_Activity extends AppCompatActivity implements View.OnClickListener {
     public static final String URL_API = "student";
-    public static final int OK = 1;
     @BindView(R.id.idStudent)
     TextView idStudent;
     @BindView(R.id.nameStudent) EditText nameStudent;
@@ -142,7 +141,7 @@ public class Update_Activity extends AppCompatActivity implements View.OnClickLi
                         mBundle.putString("email",s.getEmail());
                         //mBundle.putSerializable("student",s);
                         i.putExtras(mBundle);
-                        setResult(OK, i);
+                        setResult(RESULT_OK, i);
                         finish();
                     } else
                         message = "Error modifying the site:\n" + result.getMessage();

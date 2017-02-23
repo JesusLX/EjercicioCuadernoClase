@@ -8,7 +8,16 @@
     tools:context="com.limox.jesus.ejerciciocuadernoclase.HomeActivity"
     android:theme="@style/Theme.AppCompat.NoActionBar">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:title="Estudiantes"
+        android:id="@+id/mToolBar"
+        android:elevation="16dp"/>
+
     <android.support.design.widget.CoordinatorLayout
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

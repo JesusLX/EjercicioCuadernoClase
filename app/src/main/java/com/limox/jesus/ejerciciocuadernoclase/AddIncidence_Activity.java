@@ -2,14 +2,18 @@ package com.limox.jesus.ejerciciocuadernoclase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.limox.jesus.ejerciciocuadernoclase.Pojo.Incidence;
 import com.limox.jesus.ejerciciocuadernoclase.Pojo.Student;
 import com.limox.jesus.ejerciciocuadernoclase.Utils.RestClient;
 import com.limox.jesus.ejerciciocuadernoclase.Utils.Result;
@@ -18,69 +22,96 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class Add_Activity extends AppCompatActivity implements View.OnClickListener {
-    public static final String URL = "student";
-    @BindView(R.id.nameStudent) EditText nameStudent;
-    @BindView(R.id.surnameStudent) EditText surnameStudent;
-    @BindView(R.id.addressStudent) EditText addressStudent;
-    @BindView(R.id.cityStudent) EditText cityStudent;
-    @BindView(R.id.postalCodeStudent) EditText postalCodeStudent;
-    @BindView(R.id.phoneStudent) EditText phoneStudent;
-    @BindView(R.id.emailStudent) EditText emailSite;
-    @BindView(R.id.accept) Button accept;
-    @BindView(R.id.cancel) Button cancel;
-    //EditText nameStudent, surnameStudent, emailStudent;
-    //Button accept, cancel;
+public class AddIncidence_Activity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String URL = "incidence";
+    ArrayList<Student> students;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    String[] faltasVal = new String[]{"No", "Injustificada", "Justificada" ,"Retraso"};
+    String[] actitudVal =new String[]{"Bueno", "Regular" , "Malo"};
+    String[] trabajoVal =new String[]{"Postitva","Negativa"};
+    String[] studentsVal;
+    @BindView(R.id.spnStudents)
+    Spinner spnStudents;
+    @BindView(R.id.spnFalta)
+    Spinner spnFalta;
+    @BindView(R.id.spnTrabajo)
+    Spinner spnTrabajo;
+    @BindView(R.id.spnActitud)
+    Spinner spnActitud;
+    @BindView(R.id.edtObservacioes)
+    EditText edtObservaciones;
+    @BindView(R.id.cancel)
+    Button cancel;
+    @BindView(R.id.accept)
+    Button accept;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_incidence);
         ButterKnife.bind(this);
-        //nameStudent = (EditText) findViewById(R.id.nameStudent);
-        //surnameStudent = (EditText) findViewById(R.id.surnameStudent);
-        //emailStudent = (EditText) findViewById(R.id.emailStudent);
-        //accept = (Button) findViewById(R.id.accept);
-        //cancel = (Button) findViewById(R.id.cancel);
+
+        ArrayAdapter<CharSequence> adapterFaltas = new ArrayAdapter<CharSequence>(this, R.layout.support_simple_spinner_dropdown_item,faltasVal);
+        spnFalta.setAdapter(adapterFaltas);
+        ArrayAdapter<CharSequence> adapterActitud = new ArrayAdapter<CharSequence>(this, R.layout.support_simple_spinner_dropdown_item,actitudVal);
+        spnActitud.setAdapter(adapterActitud);
+        ArrayAdapter<CharSequence> adapterTrabajo = new ArrayAdapter<CharSequence>(this, R.layout.support_simple_spinner_dropdown_item,trabajoVal);
+        spnTrabajo.setAdapter(adapterTrabajo);
+
+        students =getIntent().getParcelableArrayListExtra("students");
+        studentsVal = new String[students.size()];
+        for (int i = 0; i < studentsVal.length; i++) {
+            studentsVal[i] = students.get(i).toString();
+        }
+        ArrayAdapter<CharSequence> adapterStudents = new ArrayAdapter<CharSequence>(this, R.layout.support_simple_spinner_dropdown_item,studentsVal);
+        spnStudents.setAdapter(adapterStudents);
         accept.setOnClickListener(this);
         cancel.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
-        String n, l, a, c,pc,p,e;
+        String actitud, trabajo, falta, observaciones;
         Student s;
+        Incidence i;
         if (v == accept) {
-            n = nameStudent.getText().toString();
-            l = surnameStudent.getText().toString();
-            a = addressStudent.getText().toString();
-            c = cityStudent.getText().toString();
-            pc = postalCodeStudent.getText().toString();
-            p = phoneStudent.getText().toString();
-            e = emailSite.getText().toString();
-            if (n.isEmpty() || l.isEmpty())
+            actitud =  spnActitud.getSelectedItem().toString();
+            trabajo = spnTrabajo.getSelectedItem().toString();
+            falta = spnFalta.getSelectedItem().toString();
+            s = students.get(spnStudents.getSelectedItemPosition());
+            observaciones = edtObservaciones.getText().toString();
+
+            if (actitud.isEmpty() || trabajo.isEmpty())
                 Toast.makeText(this, "Please, fill the name and the link", Toast.LENGTH_SHORT).show();
             else {
-                s = new Student(n, l, a, c,pc,p , e);
-                connection(s);
+                Date d = new Date();
+
+                i = new Incidence(falta, trabajo, actitud, observaciones,format.format(d),s.getId());
+                i.setName(spnStudents.getSelectedItem().toString());
+                connection(i);
             }
         }
         if (v == cancel)
             finish();
     }
-    private void connection(final Student s) {
+    private void connection(final Incidence incidence) {
         final ProgressDialog progreso = new ProgressDialog(this);
         RequestParams params = new RequestParams();
         //params.put("site", gson.toJson(s));
-        params.put("name", s.getName());
-        params.put("surname", s.getSurname());
-        params.put("address", s.getAddress());
-        params.put("city", s.getCity());
-        params.put("postalCode", s.getPostalCode());
-        params.put("phone", s.getPhone());
-        params.put("email", s.getEmail());
+        params.put("id_student", incidence.getId_user());
+        params.put("faltas", incidence.getFaltas());
+        params.put("trabajo", incidence.getTrabajo());
+        params.put("actitud", incidence.getActitud());
+        params.put("observaciones", incidence.getObservaciones());
+        params.put("date", incidence.getDate());
         RestClient.post(URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -105,7 +136,7 @@ public class Add_Activity extends AppCompatActivity implements View.OnClickListe
                         //site = gson.fromJson(String.valueOf(result.getSites()), Site.class);
                         Intent i = new Intent();
                         Bundle mBundle = new Bundle();
-                        mBundle.putSerializable("student",s);
+                        mBundle.putSerializable("incidence",incidence);
                         i.putExtras(mBundle);
                         setResult(RESULT_OK, i);
                         finish();

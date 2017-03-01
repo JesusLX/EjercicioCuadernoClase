@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_incidence"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.limox.jesus.ejerciciocuadernoclase.AddIncidence_Activity">
+
+
+    <TextView
+        android:id="@+id/txvTitleStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alumno" />
+
+    <Spinner
+        android:id="@+id/spnStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvTitleStudent" />
+
+    <TextView
+        android:id="@+id/txvTitleFalta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnStudents"
+        android:text="Falta" />
+
+    <Spinner
+        android:id="@+id/spnFalta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvTitleFalta" />
+
+    <TextView
+        android:id="@+id/txvTitleTrabajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnFalta"
+        android:text="Trabajo" />
+
+    <Spinner
+        android:id="@+id/spnTrabajo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvTitleTrabajo" />
+
+    <TextView
+        android:id="@+id/txvTitleActitud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnTrabajo"
+        android:text="Actitud" />
+
+    <Spinner
+        android:id="@+id/spnActitud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvTitleActitud" />
+
+    <TextView
+        android:id="@+id/txvTitleObservaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnActitud"
+        android:text="Observaciones:" />
+
+    <EditText
+        android:id="@+id/edtObservacioes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txvTitleObservaciones"
+        android:layout_above="@+id/cancel"
+        android:lines="5" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@android:string/cancel" />
+
+    <Button
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="@android:string/ok" />
+
+
+</RelativeLayout>

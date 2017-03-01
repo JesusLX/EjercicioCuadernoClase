@@ -1,12 +1,15 @@
 package com.limox.jesus.ejerciciocuadernoclase.Pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by usuario on 21/02/17.
  */
 
-public class Student implements Serializable{
+public class Student implements Serializable, Parcelable{
     //apellidos, nombre, dirección, ciudad, código postal, teléfono y email
     private long id;
     private String name;
@@ -30,6 +33,29 @@ public class Student implements Serializable{
         this.phone = phone;
         this.email = email;
     }
+
+    protected Student(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        surname = in.readString();
+        address = in.readString();
+        city = in.readString();
+        postalCode = in.readString();
+        phone = in.readString();
+        email = in.readString();
+    }
+
+    public static final Creator<Student> CREATOR = new Creator<Student>() {
+        @Override
+        public Student createFromParcel(Parcel in) {
+            return new Student(in);
+        }
+
+        @Override
+        public Student[] newArray(int size) {
+            return new Student[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -93,5 +119,27 @@ public class Student implements Serializable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(name);
+        parcel.writeString(surname);
+        parcel.writeString(address);
+        parcel.writeString(city);
+        parcel.writeString(postalCode);
+        parcel.writeString(phone);
+        parcel.writeString(email);
+    }
+
+    @Override
+    public String toString() {
+        return this.getSurname()+", "+this.getName();
     }
 }

@@ -57,7 +57,7 @@ public class Update_Activity extends AppCompatActivity implements View.OnClickLi
         accept.setOnClickListener(this);
         cancel.setOnClickListener(this);
         Intent i = getIntent();
-        s = (Student) i.getSerializableExtra("student");
+        s = (Student) i.getParcelableExtra("student");
         idStudent.setText(String.valueOf(s.getId()));
         nameStudent.setText(s.getName());
         surnameStudent.setText(s.getSurname());

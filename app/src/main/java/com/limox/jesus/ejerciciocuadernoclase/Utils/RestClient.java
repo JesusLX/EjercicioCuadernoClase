@@ -26,21 +26,25 @@ public class RestClient {
         client.get(getAbsoluteUrl(url), responseHandler);
     }
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("apikey",APIKEY);
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("apikey",APIKEY);
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
     public static void put(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("apikey",APIKEY);
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.put(getAbsoluteUrl(url), params, responseHandler);
     }
     public static void delete(String url, AsyncHttpResponseHandler responseHandler) {
+        client.addHeader("apikey",APIKEY);
         client.setTimeout(MAX_TIMEOUT);
         client.setMaxRetriesAndTimeout(RETRIES, TIMEOUT_BETWEEN_RETRIES);
         client.delete(getAbsoluteUrl(url), responseHandler);

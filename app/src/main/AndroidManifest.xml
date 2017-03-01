@@ -22,7 +22,8 @@
         <activity android:name=".Add_Activity" />
         <activity android:name=".Update_Activity" />
         <activity android:name=".Email_Activity" />
-        <activity android:name=".IncidecesListActivity"></activity>
+        <activity android:name=".IncidencesList_Activity"/>
+        <activity android:name=".AddIncidence_Activity"/>
     </application>
 
 </manifest>

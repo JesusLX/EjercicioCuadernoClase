@@ -1,17 +1,30 @@
 package com.limox.jesus.ejerciciocuadernoclase.Pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by usuario on 21/02/17.
  */
 
-public class Incidence {
+public class Incidence implements Serializable{
     private long id;
     private long id_user;
+    private String name;
     private String faltas;
     private String trabajo;
     private String actitud;
-    private String objservaciones;
+    private String observaciones;
     private String date;
+
+    public Incidence(String faltas, String trabajo, String actitud, String observaciones, String date, long id_user) {
+
+        this.faltas = faltas;
+        this.trabajo = trabajo;
+        this.actitud = actitud;
+        this.observaciones = observaciones;
+        this.date = date;
+        this.id_user = id_user;
+    }
 
     public long getId() {
         return id;
@@ -53,12 +66,12 @@ public class Incidence {
         this.actitud = actitud;
     }
 
-    public String getObjservaciones() {
-        return objservaciones;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setObjservaciones(String objservaciones) {
-        this.objservaciones = objservaciones;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public String getDate() {
@@ -67,5 +80,13 @@ public class Incidence {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

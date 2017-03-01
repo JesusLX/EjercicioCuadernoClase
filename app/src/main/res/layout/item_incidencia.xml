@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="15dp">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvAlumno"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvTitleFalta"
+        android:text="Falta"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/txvFalta"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvTitleTrabajo"
+        android:text="Trabajo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvTrabajo"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvTitleActitud"
+        android:text="Actitud"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvActitud"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvTitleObservaciones"
+        android:text="Observaciones"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txvObservacioes"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+</RelativeLayout>

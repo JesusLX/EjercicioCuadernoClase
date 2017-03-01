@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.limox.jesus.ejerciciocuadernoclase.Adapters.MyRecyclerAdapter;
+import com.limox.jesus.ejerciciocuadernoclase.Adapters.StudentsRecyclerAdapter;
 import com.limox.jesus.ejerciciocuadernoclase.Interfaces.ClickListener;
 import com.limox.jesus.ejerciciocuadernoclase.Pojo.Student;
 import com.limox.jesus.ejerciciocuadernoclase.Utils.RecyclerTouchListener;
@@ -45,33 +46,43 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fab;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    MyRecyclerAdapter mAdapter;
+    StudentsRecyclerAdapter mAdapter;
     int positionClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        ButterKnife.bind(this);
+
+       // mToolbar = (Toolbar) findViewById(R.id.mToolBar);
+
         mToolbar.setTitle("Estudiantes");
         mToolbar.inflateMenu(R.menu.menu_home);
+
+
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.action_incidencias:
-                        Intent intent = new Intent(HomeActivity.this,IncidecesListActivity.class);
+                        Intent intent = new Intent(HomeActivity.this,IncidencesList_Activity.class);
+                        intent.putParcelableArrayListExtra("students",mAdapter.get());
                         startActivity(intent);
                         break;
                 }
                 return false;
             }
         });
-        setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
+       // setActionBar(mToolbar);
+        //getActionBar().setTitle("Alumnos");
         //fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(this);
+
         //Initialize RecyclerView
         //recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mAdapter = new MyRecyclerAdapter(this);
+        mAdapter = new StudentsRecyclerAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
@@ -87,9 +98,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 showPopup(view, position);
             }
         }));
-        downloadSites();
+        downloadStudents();
     }
-    private void downloadSites() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+
+        // return true so that the menu pop up is opened
+        return true;
+    }
+    private void downloadStudents() {
         final ProgressDialog progreso = new ProgressDialog(this);
         RestClient.get(URL_API, new JsonHttpResponseHandler() {
             @Override
@@ -140,6 +159,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view == fab) {
             Intent i = new Intent(this, Add_Activity.class);
+            i.putParcelableArrayListExtra("incidences",mAdapter.get());
             startActivityForResult(i, ADD_CODE);
         }
     }
@@ -151,6 +171,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 student = (Student) data.getSerializableExtra("student");
                 //add the student to the adapter
                 mAdapter.add(student);
+                downloadStudents();
             }
         if (requestCode == UPDATE_CODE)
             if (resultCode == RESULT_OK) {
@@ -192,7 +213,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void modify(Student s) {
         Intent i = new Intent(this, Update_Activity.class);
-        i.putExtra("student", s);
+        Bundle b = new Bundle();
+        b.putParcelable("student",s);
+        i.putExtras(b);
         startActivityForResult(i, UPDATE_CODE);
     }
     private void confirm(final int idSite, String name, final int position) {
@@ -233,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 result = gson.fromJson(String.valueOf(response), Result.class);
                 if (result != null)
                     if (result.getCode()) {
-                        message = "Site deleted OK";
+                        message = "Student deleted OK";
                         // delete the site in the adapter
                         mAdapter.removeAt(position);
                     } else

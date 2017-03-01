@@ -19,11 +19,11 @@ import butterknife.ButterKnife;
 /**
  * Created by usuario on 13/02/17.
  */
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
-    private List<Student> studentsList;
+public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.MyViewHolder> {
+    private ArrayList<Student> studentsList;
     private LayoutInflater inflater;
 
-    public MyRecyclerAdapter(Context context) {
+    public StudentsRecyclerAdapter(Context context) {
         this.studentsList = new ArrayList<Student>();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -47,18 +47,18 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         return studentsList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name_view)
         TextView name;
         @BindView(R.id.surname_view)
         TextView surname;
 
-        //private TextView name, surname;
-        public MyViewHolder(View itemView) {
+        //private TextView name, actitud;
+        MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             //name = (TextView) itemView.findViewById(R.id.name_view);
-            //surname = (TextView) itemView.findViewById(R.id.link_view);
+            //actitud = (TextView) itemView.findViewById(R.id.link_view);
         }
     }
 
@@ -77,13 +77,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     public void add(Student site) {
         //add a site
         this.studentsList.add(site);
-        notifyItemInserted(studentsList.size()-1);
+        notifyItemInserted(studentsList.size() - 1);
 
     }
 
     public void modifyAt(Student site, int position) {
         //modify a site in the position
-        this.studentsList.set(position,site);
+        this.studentsList.set(position, site);
         notifyItemChanged(position);
     }
 
@@ -91,5 +91,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         //delete a site in the position
         this.studentsList.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public ArrayList<Student> get(){
+        return this.studentsList;
     }
 }

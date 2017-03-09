@@ -13,7 +13,7 @@
         android:text="Name:" />
     <EditText
         android:id="@+id/nameStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Alex"
         android:textSize="18sp" />
@@ -24,7 +24,7 @@
         android:text="Surname:" />
     <EditText
         android:id="@+id/surnameStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dominguez"
         android:textSize="16sp" />
@@ -35,7 +35,7 @@
         android:text="Address:" />
     <EditText
         android:id="@+id/addressStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="C/ Falsa 123"
         android:textSize="16sp" />
@@ -47,7 +47,7 @@
         android:text="City:" />
     <EditText
         android:id="@+id/cityStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Malaga"
         android:textSize="16sp" />
@@ -70,7 +70,7 @@
         android:text="Phone:" />
     <EditText
         android:id="@+id/phoneStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="669665544"
         android:inputType="phone"
@@ -82,7 +82,7 @@
         android:text="Email:" />
     <EditText
         android:id="@+id/emailStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="webmaster@alejandrosuarez.es"
         android:textSize="16sp" />
